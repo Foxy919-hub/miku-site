@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatsune Miku</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00c3ff, #00ffcc);
+            color: #222;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #00ffd5 10%, transparent 40%);
+            top: -50%;
+            left: -50%;
+            opacity: 0.15;
+            animation: glowMove 10s linear infinite;
+        }
+
+        @keyframes glowMove {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 50px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #00ffd5;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #ccefff;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #111;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #00ffd5;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #00ffd5;
+            color: black;
+            box-shadow: 0 0 10px #00ffd5;
+        }
+
+        .miku-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 40px 20px 20px;
+            margin: 10px 20px 0;
+        }
+
+        .emoji-effects {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .miku-card,
+        .miku-right {
+            position: relative;
+            z-index: 1;
+        }
+
+        .miku-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #miku {
+            width: 180px;
+            cursor: pointer;
+            border-radius: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            filter: drop-shadow(0 0 10px #00ffd5);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px;
+        }
+
+        #miku:hover {
+            transform: scale(1.08);
+        }
+
+        #miku.spin {
+            animation: spin 1s ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .miku-card p {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #0b4f57;
+            text-shadow: 0 0 10px rgba(0, 255, 213, 0.35);
+        }
+
+        .miku-right {
+            background: rgba(10, 10, 20, 0.85);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,255,213,0.25);
+            color: #00ffd5;
+            width: 230px;
+        }
+
+        .miku-right h3 {
+            text-align: center;
+            margin: 0 0 15px;
+            text-shadow: 0 0 10px #00ffd5;
+        }
+
+        .miku-right button,
+        section button {
+            padding: 10px 20px;
+            background: #00cccc;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .miku-right button {
+            width: 100%;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .miku-right button:hover,
+        section button:hover {
+            background: #00ffd5;
+            color: #000;
+            box-shadow: 0 0 10px #00ffd5;
+        }
+
+        .effects-display {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .effect {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.9;
+            animation: floatEffect 2s linear forwards;
+        }
+
+        @keyframes floatEffect {
+            0% { transform: translateY(0) scale(0.8); opacity: 0.95; }
+            50% { transform: translateY(-50px) scale(1.1); opacity: 1; }
+            100% { transform: translateY(-110px) scale(0.8); opacity: 0; }
+        }
+
+        section {
+            padding: 40px;
+            background: rgba(255,255,255,0.9);
+            margin: 20px;
+            border-radius: 15px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: #008b8b;
+            margin-top: 0;
+        }
+
+        #info {
+            line-height: 1.7;
+        }
+
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 30px 0;
+        }
+
+        .video {
+            background: linear-gradient(145deg, #1e1e2f, #2b2b40);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .video:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 180px;
+            border: none;
+        }
+
+        .video p {
+            color: #00ffd5;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 16px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .video:hover p {
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ffd5;
+        }
+
+        #gallery {
+            padding: 40px;
+            text-align: center;
+            background: #12121c;
+            color: #e9ffff;
+        }
+
+        #gallery h2 {
+            color: #00ffd5;
+            font-size: 28px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            min-height: 220px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.6);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00ffd5;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            transition: 0.4s;
+            text-shadow: 0 0 10px #00ffd5;
+            background: rgba(0,0,0,0.15);
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        #funfacts, #history, #events {
+            background: rgba(10, 10, 20, 0.85);
+            color: #e6faff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: 0.4s;
+        }
+
+        #funfacts:hover, #history:hover, #events:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,255,213,0.25);
+        }
+
+        #funfacts h2, #history h2, #events h2 {
+            color: #00ffd5;
+            text-shadow: 0 0 10px rgba(0,255,213,0.6);
+            margin-bottom: 15px;
+        }
+
+        #funfacts ul, #events ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #funfacts li, #events li {
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid #00ffd5;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        #funfacts li:hover, #events li:hover {
+            background: rgba(0,255,213,0.1);
+            transform: translateX(5px);
+        }
+
+        #history p {
+            line-height: 1.6;
+            font-size: 16px;
+            color: #d6f7ff;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0b0b14, #111122);
+            color: #b8f7ff;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            margin-top: 60px;
+            overflow: hidden;
+            border-top: 1px solid rgba(0,255,213,0.4);
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ffd5, transparent);
+            animation: moveLine 3s linear infinite;
+        }
+
+        @keyframes moveLine {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+
+        footer p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #aeefff;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #00ffd5;
+            font-weight: bold;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .footer-links a:hover {
+            background: rgba(0,255,213,0.15);
+            border: 1px solid #00ffd5;
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0,255,213,0.4);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px #00ffd5;
+            transform: scale(0.95);
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.8;
+            animation: floatEmoji linear forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatEmoji {
+            0% {
+                transform: translate(var(--xStart), var(--yStart)) scale(var(--scale));
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--xEnd), var(--yEnd)) scale(var(--scaleEnd));
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 36px;
+            }
+
+            .miku-section {
+                gap: 20px;
+                padding: 30px 15px 10px;
+            }
+
+            .miku-right {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            section {
+                padding: 25px;
+                margin: 15px;
+            }
+
+            .videos {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+    <div class="layer layer-1"></div>
+    <div class="layer layer-2"></div>
+    <div class="hero-overlay"></div>
+
+    <h1 class="hero-title">Hatsune Miku</h1>
+    <p class="hero-subtitle">
+        Wirtualna diva, która żyje dzięki internetowi i chaosowi fanów
+    </p>
+</header>
+
+<nav>
+    <a href="#info">Informacje</a>
+    <a href="#music">Muzyka</a>
+    <a href="#gallery">Galeria</a>
+    <a href="#funfacts">Ciekawostki</a>
+    <a href="#history">Historia</a>
+    <a href="#events">Koncerty</a>
+</nav>
+
+<div class="miku-section">
+    <div class="emoji-effects"></div>
+
+    <div class="miku-card">
+        <img id="miku" src="https://i.pinimg.com/564x/a9/5d/08/a95d08b4f037d74a6dfdb57357e5a136.jpg" alt="Hatsune Miku">
+        <p>Kliknij Miku 💚</p>
+    </div>
+
+    <div class="miku-right">
+        <h3>Efekty fanów</h3>
+        <button id="heartBtn">💖 Serce!</button>
+        <button id="starBtn">⭐ Gwiazdka!</button>
+        <button id="sparkBtn">✨ Błysk!</button>
+        <div class="effects-display"></div>
+    </div>
+</div>
+
+<audio id="mikuSound">
+    <source src="koiroylers-sparkle-355937.mp3" type="audio/mp3">
+</audio>
+
+<section id="info">
+    <h2>Kim jest Hatsune Miku?</h2>
+    <p>
+        Jest to wirtualna piosenkarka stworzona na bazie technologii syntezy śpiewu opracowanej przez Crypton Future Media, z siedzibą w Sapporo, w Japonii. Używa technologii syntetyzujących śpiew firmy Yamaha Corporation – Vocaloid 2, Vocaloid 3 oraz Vocaloid 4. Posiada 5 japońskich banków brzmień: ulepszoną wersję oryginalnego głosu Vocaloid 2 i cztery banki brzmień z oprogramowaniem MIKU Append. Wykorzystuje również edytor głosu Piapro Studio VSTi. Była drugim sprzedawanym Vocaloidem używającym silnika Vocaloid 2, a także pierwszym japońskim Vocaloidem korzystającym z japońskiej wersji silnika Vocaloid 2. Głos Miku jest oparty na głosie Saki Fujita, japońskiej seiyū i piosenkarki. Hatsune Miku jest przedstawiana jako 16-letnia dziewczyna o długich turkusowych włosach. Imię piosenkarki oznacza, w wolnym tłumaczeniu „pierwszy dźwięk przyszłości”. Jej pseudonim „CV01” jest skrótem od „Character Voice 01”. Hatsune Miku jest tytułową bohaterką serii gier rytmicznych Hatsune Miku: Project Diva.
+    </p>
+</section>
+
+<section id="music">
+    <h2>Popularne utwory</h2>
+
+    <div class="videos">
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/EuJ6UR_pD5s" title="World is Mine" allowfullscreen></iframe>
+            <p>World is Mine</p>
+        </div>
+
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/shs0rAiwsGQ" title="Senbonzakura" allowfullscreen></iframe>
+            <p>Senbonzakura</p>
+        </div>
+
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/PqJNc9KVIZE" title="Tell Your World" allowfullscreen></iframe>
+            <p>Tell Your World</p>
+        </div>
+    </div>
+
+    <button onclick="alert('Dziękuję za odwiedziny! 💙')">Kliknij mnie</button>
+</section>
+
+<section id="gallery">
+    <h2>Galeria</h2>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://i.redd.it/29wcsjvk5d2a1.jpg" alt="Miku Vibes">
+            <div class="overlay">Miku Vibes</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://i.pinimg.com/736x/ab/22/a9/ab22a9b92f94e77c46645ac78d16a01b.jpg" alt="Cute Miku">
+            <div class="overlay">Cute Miku</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://kawaji.co.uk/cdn/shop/articles/Art_by_kiyamachi_CFM_MIKU_1.png?v=1666890427" alt="Art Style">
+            <div class="overlay">Art Style</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://www.impericon.com/cdn/shop/files/hatsune-miku-figurine-hatsune-miku-x2_215eacd1-4a8c-4906-b623-4e714cb4855a.jpg?v=1770999890" alt="Figure">
+            <div class="overlay">Figure</div>
+        </div>
+    </div>
+</section>
+
+<section id="funfacts">
+    <h2>Ciekawostki</h2>
+    <ul>
+        <li>Miku ma ponad 100 000 utworów stworzonych przez fanów</li>
+        <li>Występuje jako hologram na koncertach na żywo</li>
+        <li>Nie jest prawdziwa, a i tak zarabia więcej niż większość ludzi</li>
+        <li>Jej głos powstał z próbek prawdziwej seiyū</li>
+    </ul>
+</section>
+
+<section id="history">
+    <h2>Historia powstania</h2>
+    <p>
+        Hatsune Miku została stworzona przez Crypton Future Media jako część technologii Vocaloid.
+        Jej premiera odbyła się w 2007 roku i szybko stała się internetowym fenomenem.
+        Zamiast jednego wykonawcy, stała się platformą dla tysięcy twórców muzyki.
+    </p>
+</section>
+
+<section id="events">
+    <h2>Koncerty na żywo</h2>
+    <p>
+        Miku występuje jako projekcja 3D na scenie, często przed tysiącami fanów.
+        Jej koncerty odbywały się m.in. w Japonii, USA i Europie.
+    </p>
+
+    <ul>
+        <li>Hatsune Miku Expo (globalna trasa koncertowa)</li>
+        <li>Miku Live in Tokyo Dome</li>
+        <li>Japan Vocaloid Festivals</li>
+    </ul>
+</section>
+
+<footer>
+    <p>Strona o Hatsune Miku | 2026</p>
+
+    <div class="footer-links">
+        <a href="https://www.youtube.com/@HatsuneMiku" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://twitter.com/cfm_miku_en" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://www.instagram.com/cfm_miku_official/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="Podgląd zdjęcia">
+</div>
+
+<script>
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    sections.forEach(section => observer.observe(section));
+
+    const miku = document.getElementById("miku");
+    const sound = document.getElementById("mikuSound");
+
+    miku.addEventListener("click", () => {
+        miku.classList.remove("spin");
+        void miku.offsetWidth;
+        miku.classList.add("spin");
+
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+    });
+
+    const effectsDisplay = document.querySelector(".effects-display");
+
+    function createEffect(symbol) {
+        const effect = document.createElement("div");
+        effect.className = "effect";
+        effect.textContent = symbol;
+        effect.style.left = Math.random() * 160 + "px";
+        effect.style.bottom = "0";
+        effectsDisplay.appendChild(effect);
+
+        setTimeout(() => effect.remove(), 2000);
+    }
+
+    document.getElementById("heartBtn").addEventListener("click", () => createEffect("💖"));
+    document.getElementById("starBtn").addEventListener("click", () => createEffect("⭐"));
+    document.getElementById("sparkBtn").addEventListener("click", () => createEffect("✨"));
+
+    const emojiContainer = document.querySelector(".emoji-effects");
+    const emojis = ["💖", "⭐", "✨", "💚", "🌟", "💙", "💜", "💫"];
+    const spawnCount = 6;
+
+    function spawnEmoji() {
+        if (!emojiContainer) return;
+
+        for (let i = 0; i < spawnCount; i++) {
+            const emoji = document.createElement("div");
+            emoji.className = "emoji";
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+            const xStart = Math.random() * 100 + "%";
+            const yStart = Math.random() * 100 + "%";
+            const xEnd = (Math.random() * 200 - 100) + "px";
+            const yEnd = -(Math.random() * 400 + 100) + "px";
+            const scale = Math.random() * 0.8 + 0.5;
+            const scaleEnd = scale + Math.random() * 0.5;
+
+            emoji.style.left = xStart;
+            emoji.style.top = yStart;
+            emoji.style.setProperty("--xStart", "0px");
+            emoji.style.setProperty("--yStart", "0px");
+            emoji.style.setProperty("--xEnd", xEnd);
+            emoji.style.setProperty("--yEnd", yEnd);
+            emoji.style.setProperty("--scale", scale);
+            emoji.style.setProperty("--scaleEnd", scaleEnd);
+
+            const duration = Math.random() * 3 + 2;
+            emoji.style.animationDuration = duration + "s";
+
+            emojiContainer.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, duration * 1000);
+        }
+    }
+
+    setInterval(spawnEmoji, 400);
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    document.querySelectorAll(".gallery img").forEach(img => {
+        img.addEventListener("click", () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add("show");
+        });
+    });
+
+    lightbox.addEventListener("click", () => {
+        lightbox.classList.remove("show");
+        lightboxImg.src = "";
+    });
+</script>
+<style>
+	.hero {
+		position: relative;
+		height: 60vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		background: linear-gradient(135deg, #00f5ff, #ff4fd8, #7cff6b);
+		background-size: 400% 400%;
+		animation: bgMove 10s infinite alternate;
+
+		color: white;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0,0,0,0.35);
+	}
+
+	.hero-title {
+		font-size: 4rem;
+		z-index: 2;
+		text-shadow: 0 0 20px #00f5ff, 0 0 40px #ff4fd8;
+		animation: floatText 3s ease-in-out infinite;
+	}
+
+	.hero-subtitle {
+		font-size: 1.2rem;
+		max-width: 600px;
+		z-index: 2;
+		opacity: 0.9;
+		margin-top: 10px;
+	}
+
+	@keyframes bgMove {
+		0% { background-position: 0% 50%; }
+		100% { background-position: 100% 50%; }
+	}
+
+	@keyframes floatText {
+		0%, 100% { transform: translateY(0px); }
+		50% { transform: translateY(-10px); }
+	}
+.hero {
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.layer {
+    position: absolute;
+    inset: -50px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    pointer-events: none;
+}
+
+.layer-1 {
+    background: radial-gradient(circle at 30% 30%, rgba(0,255,255,0.4), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(255,0,200,0.3), transparent 60%);
+    transform: scale(1.1);
+}
+
+.layer-2 {
+    background: radial-gradient(circle at 50% 50%, rgba(120,255,120,0.2), transparent 70%);
+    transform: scale(1.2);
+}
+.hero-title {
+    font-size: 4rem;
+    z-index: 2;
+    color: #fff;
+    position: relative;
+    text-shadow: 0 0 20px #00f5ff, 0 0 40px #ff4fd8;
+    animation: floatText 3s ease-in-out infinite;
+}
+
+.hero-title::before,
+.hero-title::after {
+    content: "Hatsune Miku";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.7;
+}
+
+.hero-title::before {
+    color: #ff00ff;
+    animation: glitchTop 2s infinite linear alternate-reverse;
+}
+
+.hero-title::after {
+    color: #00ffff;
+    animation: glitchBottom 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop {
+    0% { transform: translate(0,0); clip-path: inset(0 0 60% 0); }
+    25% { transform: translate(-2px,-2px); }
+    50% { transform: translate(2px,0); }
+    100% { transform: translate(0,2px); }
+}
+
+@keyframes glitchBottom {
+    0% { transform: translate(0,0); clip-path: inset(60% 0 0 0); }
+    25% { transform: translate(2px,2px); }
+    50% { transform: translate(-2px,0); }
+    100% { transform: translate(0,-2px); }
+}
+body {
+    animation: pulseBg 6s infinite alternate;
+}
+
+@keyframes pulseBg {
+    0% { background-color: #050510; }
+    100% { background-color: #0a0a20; }
+}
+</style>
+</body>
+</html>
