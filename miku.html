@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Hatsune Miku</title>
+    <style>
+	body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00c3ff, #00ffcc);
+            color: #222;
+        }
+
+        header {
+            background: #0a0a0a;
+            color: #00ffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #111;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #00ffff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+		
+        nav a:hover {
+            color: #fff;
+        }
+
+        section {
+            padding: 40px;
+            background: rgba(255,255,255,0.9);
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        h2 {
+            color: #008b8b;
+        }
+
+        .gallery img {
+            width: 200px;
+            border-radius: 10px;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #00ffff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #00cccc;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #009999;
+        }
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+    </style>
+<style>
+	.lightbox {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.9);
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
+	}
+
+	.lightbox img {
+		max-width: 90%;
+		max-height: 90%;
+		border-radius: 10px;
+		box-shadow: 0 0 25px #00ffd5;
+		transform: scale(0.9);
+		transition: 0.3s;
+	}
+
+	.lightbox.show {
+		display: flex;
+	}
+	</style>
+<style>
+	.videos {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.video {
+		text-align: center;
+	}
+</style>
+
+</head>
+<body>
+
+<style>
+header {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px;
+    color: white;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    overflow: hidden;
+}
+
+/* neonowy efekt tła */
+header::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, #00ffd5 10%, transparent 40%);
+    top: -50%;
+    left: -50%;
+    opacity: 0.15;
+    animation: glowMove 10s linear infinite;
+}
+
+@keyframes glowMove {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+header h1 {
+    font-size: 50px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px #00ffd5;
+    position: relative;
+}
+
+header p {
+    font-size: 18px;
+    color: #ccefff;
+    position: relative;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #111;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: #00ffd5;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+/* hover efekt */
+nav a:hover {
+    background: #00ffd5;
+    color: black;
+    box-shadow: 0 0 10px #00ffd5;
+}
+</style>
+
+
+<header>
+    <h1>Hatsune Miku</h1>
+    <p>Wirtualna diva, której koncerty mają więcej ludzi niż niejedna prawdziwa gwiazda</p>
+</header>
+
+<nav>
+    <a href="#info">Informacje</a>
+    <a href="#music">Muzyka</a>
+    <a href="#gallery">Galeria</a>
+	<a href="#funfacts">Ciekawostki</a>
+	<a href="#history">Historia</a>
+	<a href="#events">Koncerty</a>
+</nav>
+
+<section id="info">
+    <h2>Kim jest Hatsune Miku?</h2>
+    <p>
+       Jest to wirtualna piosenkarka stworzona na bazie technologii syntezy śpiewu opracowanej przez Crypton Future Media, z siedzibą w Sapporo, w Japonii. Używa technologii syntetyzujących śpiew firmy Yamaha Corporation – Vocaloid 2, Vocaloid 3 oraz Vocaloid 4. Posiada 5 japońskich banków brzmień: ulepszoną wersję oryginalnego głosu Vocaloid 2 i cztery banki brzmień z oprogramowaniem MIKU Append. Wykorzystuje również edytor głosu Piapro Studio VSTi. Była drugim sprzedawanym Vocaloidem używającym silnika Vocaloid 2, a także pierwszym japońskim Vocaloidem korzystającym z japońskiej wersji silnika Vocaloid 2. Głos Miku jest oparty na głosie Saki Fujita, japońskiej seiyū i piosenkarki. Hatsune Miku jest przedstawiana jako 16-letnia dziewczyna o długich turkusowych włosach. Imię piosenkarki oznacza, w wolnym tłumaczeniu „pierwszy dźwięk przyszłości”. Jej pseudonim „CV01” jest skrótem od „Character Voice 01”. Hatsune Miku jest tytułową bohaterką serii gier rytmicznych Hatsune Miku: Project Diva.
+    </p>
+</section>
+
+<section id="music">
+    <h2>Popularne utwory</h2>
+
+<style>
+.videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 30px;
+}
+
+.video {
+    background: linear-gradient(145deg, #1e1e2f, #2b2b40);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    text-align: center;
+}
+
+.video:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+}
+
+.video iframe {
+    width: 100%;
+    height: 180px;
+    border: none;
+}
+
+.video p {
+    color: #00ffd5;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* Opcjonalny glow efekt */
+.video:hover p {
+    color: #ffffff;
+    text-shadow: 0 0 10px #00ffd5;
+}
+</style>
+
+
+<div class="videos">
+
+    <div class="video">
+        <iframe src="https://www.youtube.com/embed/EuJ6UR_pD5s" allowfullscreen></iframe>
+        <p>World is Mine</p>
+    </div>
+
+    <div class="video">
+        <iframe src="https://www.youtube.com/embed/shs0rAiwsGQ" allowfullscreen></iframe>
+        <p>Senbonzakura</p>
+    </div>
+
+    <div class="video">
+        <iframe src="https://www.youtube.com/embed/PqJNc9KVIZE" allowfullscreen></iframe>
+        <p>Tell Your World</p>
+    </div>
+
+</div>
+    <button onclick="alert('Dziękuję za odwiedziny! 💙')">
+        Kliknij mnie
+    </button>
+</section>
+
+<style>
+#gallery {
+    padding: 40px;
+    text-align: center;
+    background: #12121c;
+}
+
+#gallery h2 {
+    color: #00ffd5;
+    font-size: 28px;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+/* efekt przy najechaniu */
+.gallery-item:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.6);
+}
+
+/* overlay z napisem */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00ffd5;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0;
+    transition: 0.4s;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+</style>
+
+
+<section id="gallery">
+    <h2>Galeria</h2>
+
+    <div class="gallery">
+
+        <div class="gallery-item">
+            <img src="https://i.redd.it/29wcsjvk5d2a1.jpg">
+            <div class="overlay">Miku Vibes</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://i.pinimg.com/736x/ab/22/a9/ab22a9b92f94e77c46645ac78d16a01b.jpg">
+            <div class="overlay">Cute Miku</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://kawaji.co.uk/cdn/shop/articles/Art_by_kiyamachi_CFM_MIKU_1.png?v=1666890427">
+            <div class="overlay">Art Style</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://www.impericon.com/cdn/shop/files/hatsune-miku-figurine-hatsune-miku-x2_215eacd1-4a8c-4906-b623-4e714cb4855a.jpg?v=1770999890">
+            <div class="overlay">Figure</div>
+        </div>
+
+    </div>
+</section>
+
+<section id="funfacts">
+    <h2>Ciekawostki</h2>
+    <ul>
+        <li>Miku ma ponad 100 000 utworów stworzonych przez fanów</li>
+        <li>Występuje jako hologram na koncertach na żywo</li>
+        <li>Nie jest prawdziwa, a i tak zarabia więcej niż większość ludzi</li>
+        <li>Jej głos powstał z próbek prawdziwej seiyū</li>
+    </ul>
+</section>
+<section id="history">
+    <h2>Historia powstania</h2>
+    <p>
+        Hatsune Miku została stworzona przez Crypton Future Media jako część technologii Vocaloid.
+        Jej premiera odbyła się w 2007 roku i szybko stała się internetowym fenomenem.
+        Zamiast jednego wykonawcy, stała się platformą dla tysięcy twórców muzyki.
+    </p>
+</section>
+<section id="events">
+    <h2>Koncerty na żywo</h2>
+    <p>
+        Miku występuje jako projekcja 3D na scenie, często przed tysiącami fanów.
+        Jej koncerty odbywały się m.in. w Japonii, USA i Europie.
+    </p>
+
+    <ul>
+        <li>Hatsune Miku Expo (globalna trasa koncertowa)</li>
+        <li>Miku Live in Tokyo Dome</li>
+        <li>Japan Vocaloid Festivals</li>
+    </ul>
+</section>
+<style>
+/* wspólny wygląd sekcji */
+#funfacts, #history, #events {
+    background: rgba(10, 10, 20, 0.85);
+    color: #e6faff;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transition: 0.4s;
+}
+
+/* hover jak karta */
+#funfacts:hover, #history:hover, #events:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,255,213,0.25);
+}
+
+/* nagłówki */
+#funfacts h2, #history h2, #events h2 {
+    color: #00ffd5;
+    text-shadow: 0 0 10px rgba(0,255,213,0.6);
+    margin-bottom: 15px;
+}
+
+/* listy */
+#funfacts ul, #events ul {
+    list-style: none;
+    padding: 0;
+}
+
+#funfacts li, #events li {
+    padding: 10px;
+    margin: 8px 0;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid #00ffd5;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+/* hover na elementach listy */
+#funfacts li:hover, #events li:hover {
+    background: rgba(0,255,213,0.1);
+    transform: translateX(5px);
+}
+
+/* tekst historii */
+#history p {
+    line-height: 1.6;
+    font-size: 16px;
+    color: #d6f7ff;
+}
+</style>
+<style>
+footer {
+    background: #0d0d14;
+    color: #aaa;
+    text-align: center;
+    padding: 30px 20px;
+    position: relative;
+    margin-top: 50px;
+    border-top: 1px solid #00ffd5;
+}
+
+/* delikatny efekt światła */
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: #00ffd5;
+    box-shadow: 0 0 15px #00ffd5;
+}
+
+footer p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* sociale */
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #00ffd5;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+    text-shadow: 0 0 10px #00ffd5;
+}
+</style>
+<style>
+footer {
+    background: linear-gradient(135deg, #0b0b14, #111122);
+    color: #b8f7ff;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    margin-top: 60px;
+    overflow: hidden;
+    border-top: 1px solid rgba(0,255,213,0.4);
+}
+
+/* neonowa fala */
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ffd5, transparent);
+    animation: moveLine 3s linear infinite;
+}
+
+@keyframes moveLine {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+}
+
+/* tekst */
+footer p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #aeefff;
+    letter-spacing: 1px;
+}
+
+/* linki */
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #00ffd5;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+/* hover */
+.footer-links a:hover {
+    background: rgba(0,255,213,0.15);
+    border: 1px solid #00ffd5;
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(0,255,213,0.4);
+}
+</style>
+
+<footer>
+    <p>Strona o Hatsune Miku | 2026</p>
+
+    <div class="footer-links">
+        <a href="https://www.youtube.com/@HatsuneMiku" target="_blank">YouTube</a>
+        <a href="https://twitter.com/cfm_miku_en" target="_blank">Twitter</a>
+        <a href="https://www.instagram.com/cfm_miku_official/" target="_blank">Instagram</a>
+    </div>
+</footer>
+<div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="">
+</div>
+<script>
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+}, {
+    threshold: 0.15
+});
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+</script>
