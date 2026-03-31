@@ -2,605 +2,502 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Hatsune Miku</title>
+    <title>Kasane Teto</title>
     <style>
-	body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #00c3ff, #00ffcc);
-            color: #222;
-        }
-
-        header {
-            background: #0a0a0a;
-            color: #00ffff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        nav {
-            background: #111;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            color: #00ffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-		
-        nav a:hover {
-            color: #fff;
-        }
-
-        section {
-            padding: 40px;
-            background: rgba(255,255,255,0.9);
-            margin: 20px;
-            border-radius: 15px;
-        }
-
-        h2 {
-            color: #008b8b;
-        }
-
-        .gallery img {
-            width: 200px;
-            border-radius: 10px;
-            margin: 10px;
-            transition: transform 0.3s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.1);
-        }
-
-        footer {
-            background: #0a0a0a;
-            color: #00ffff;
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background: #00cccc;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #009999;
-        }
-html {
-    scroll-behavior: smooth;
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #222;
+    margin: 0;
+    padding: 0;
 }
 
-
-
-    </style>
-<style>
-	.lightbox {
-		display: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0,0,0,0.9);
-		justify-content: center;
-		align-items: center;
-		z-index: 9999;
-	}
-
-	.lightbox img {
-		max-width: 90%;
-		max-height: 90%;
-		border-radius: 10px;
-		box-shadow: 0 0 25px #00ffd5;
-		transform: scale(0.9);
-		transition: 0.3s;
-	}
-
-	.lightbox.show {
-		display: flex;
-	}
-	</style>
-<style>
-	.videos {
-		display: flex;
-		gap: 20px;
-		flex-wrap: wrap;
-	}
-
-	.video {
-		text-align: center;
-	}
-</style>
-
-</head>
-<body>
-
-<style>
 header {
-    position: relative;
-    text-align: center;
-    padding: 80px 20px;
+    background: linear-gradient(90deg, #ff4d6d, #c9184a);
     color: white;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+/* efekt świecącej krawędzi */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(45deg, #ff4d6d, #ff8fa3, #ffc2d1);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* nagłówki w kartach */
+.card h2 {
+    margin-top: 0;
+    color: #c9184a;
+    border-left: 5px solid #ff4d6d;
+    padding-left: 10px;
+}
+
+/* lista wygląda mniej jak kara za grzechy */
+.card ul {
+    padding-left: 20px;
+}
+
+.card li {
+    margin-bottom: 6px;
+}
+
+/* trochę stylu dla tekstu */
+.card p {
+    line-height: 1.6;
+}
+
+img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 14px;
+    border: 4px solid white;
+}
+
+button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #c9184a;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 16px;
+    background: #c9184a;
+    color: white;
+    margin-top: 30px;
+}
+header {
+    background: linear-gradient(120deg, #ff4d6d, #ff8fa3);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
     overflow: hidden;
 }
 
-/* neonowy efekt tła */
+header h1 {
+    font-size: 48px;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 20px;
+    margin: 10px 0 20px;
+    opacity: 0.9;
+}
+
+header button {
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+    border-radius: 999px;
+    padding: 12px 25px;
+    transition: 0.3s;
+}
+
+header button:hover {
+    background: #ffe5ec;
+    transform: scale(1.1);
+}
+
+/* efekt glow w tle */
 header::before {
     content: "";
     position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, #00ffd5 10%, transparent 40%);
-    top: -50%;
-    left: -50%;
-    opacity: 0.15;
-    animation: glowMove 10s linear infinite;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.2);
+    top: -50px;
+    left: -50px;
+    border-radius: 50%;
+    filter: blur(80px);
 }
 
-@keyframes glowMove {
+header::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: rgba(255,255,255,0.15);
+    bottom: -50px;
+    right: -50px;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+.bagietki {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bagietka {
+    position: absolute;
+    top: -50px;
+    font-size: 30px;
+    animation: spadanie linear infinite;
+}
+
+@keyframes spadanie {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* żeby karty były nad bagietkami */
+.card {
+    position: relative;
+    z-index: 1;
+}
+.gallery {
+    column-count: 3;
+    column-gap: 15px;
+}
+
+.gallery figure {
+    break-inside: avoid;
+    margin: 0 0 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.gallery figure:hover {
+    transform: translateY(-5px);
+}
+
+.gallery img {
+    width: 100%;
+    display: block;
+}
+
+.gallery figcaption {
+    padding: 10px;
+    font-size: 14px;
+    color: #c9184a;
+    text-align: center;
+}
+
+/* responsywność */
+@media (max-width: 900px) {
+    .gallery { column-count: 2; }
+}
+
+@media (max-width: 600px) {
+    .gallery { column-count: 1; }
+}
+@media (max-width: 1100px) {
+    .side-teto {
+        width: 160px;
+    }
+}
+
+@media (max-width: 850px) {
+    .side-teto {
+        display: none;
+    }
+}
+header, .container, footer {
+    position: relative;
+    z-index: 1;
+}
+.game {
+    text-align: center;
+    margin: 50px auto;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.game h2 {
+    color: #c9184a;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+#score {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff4d6d;
+}
+
+#gameArea {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    height: 420px;
+    margin: 20px auto;
+    border-radius: 25px;
+
+    background: radial-gradient(circle at top, #fff 0%, #ffe5ec 40%, #ffc2d1 100%);
+    
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.25),
+        inset 0 0 60px rgba(255, 77, 109, 0.2);
+
+    overflow: hidden;
+}
+
+/* koszyk */
+#basket {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 46px;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3));
+    transition: transform 0.05s linear;
+}
+
+/* bagietki */
+.baguette {
+    position: absolute;
+    font-size: 30px;
+    top: -50px;
+    filter: drop-shadow(0 6px 6px rgba(0,0,0,0.25));
+    animation: spin 1.2s linear infinite;
+}
+
+/* obracanie bagietki */
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-header h1 {
-    font-size: 50px;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-    text-shadow: 0 0 15px #00ffd5;
-    position: relative;
+/* lekkie tło “żyje” */
+#gameArea::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.4), transparent);
+    animation: floatBg 6s ease-in-out infinite alternate;
 }
 
-header p {
-    font-size: 18px;
-    color: #ccefff;
-    position: relative;
+@keyframes floatBg {
+    from { transform: translate(-10%, -10%); }
+    to { transform: translate(10%, 10%); }
 }
-
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    background: #111;
-    padding: 15px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-nav a {
-    color: #00ffd5;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-/* hover efekt */
-nav a:hover {
-    background: #00ffd5;
-    color: black;
-    box-shadow: 0 0 10px #00ffd5;
-}
-</style>
-
+    </style>
+</head>
+<body>
 
 <header>
-    <h1>Hatsune Miku</h1>
-    <p>Wirtualna diva, której koncerty mają więcej ludzi niż niejedna prawdziwa gwiazda</p>
+    <h1>Kasane Teto</h1>
+    <p>Królowa UTAU i chaosu</p>
+    <button onclick="alert(' Kasane supremacy!')">Kliknij mnie!</button>
 </header>
 
-<nav>
-    <a href="#info">Informacje</a>
-    <a href="#music">Muzyka</a>
-    <a href="#gallery">Galeria</a>
-	<a href="#funfacts">Ciekawostki</a>
-	<a href="#history">Historia</a>
-	<a href="#events">Koncerty</a>
-</nav>
+<div class="container">
 
-<section id="info">
-    <h2>Kim jest Hatsune Miku?</h2>
-    <p>
-       Jest to wirtualna piosenkarka stworzona na bazie technologii syntezy śpiewu opracowanej przez Crypton Future Media, z siedzibą w Sapporo, w Japonii. Używa technologii syntetyzujących śpiew firmy Yamaha Corporation – Vocaloid 2, Vocaloid 3 oraz Vocaloid 4. Posiada 5 japońskich banków brzmień: ulepszoną wersję oryginalnego głosu Vocaloid 2 i cztery banki brzmień z oprogramowaniem MIKU Append. Wykorzystuje również edytor głosu Piapro Studio VSTi. Była drugim sprzedawanym Vocaloidem używającym silnika Vocaloid 2, a także pierwszym japońskim Vocaloidem korzystającym z japońskiej wersji silnika Vocaloid 2. Głos Miku jest oparty na głosie Saki Fujita, japońskiej seiyū i piosenkarki. Hatsune Miku jest przedstawiana jako 16-letnia dziewczyna o długich turkusowych włosach. Imię piosenkarki oznacza, w wolnym tłumaczeniu „pierwszy dźwięk przyszłości”. Jej pseudonim „CV01” jest skrótem od „Character Voice 01”. Hatsune Miku jest tytułową bohaterką serii gier rytmicznych Hatsune Miku: Project Diva.
-    </p>
-</section>
-
-<section id="music">
-    <h2>Popularne utwory</h2>
-
-<style>
-.videos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    padding: 30px;
-}
-
-.video {
-    background: linear-gradient(145deg, #1e1e2f, #2b2b40);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    transition: 0.3s;
-    text-align: center;
-}
-
-.video:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-}
-
-.video iframe {
-    width: 100%;
-    height: 180px;
-    border: none;
-}
-
-.video p {
-    color: #00ffd5;
-    font-weight: bold;
-    padding: 10px;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
-/* Opcjonalny glow efekt */
-.video:hover p {
-    color: #ffffff;
-    text-shadow: 0 0 10px #00ffd5;
-}
-</style>
-
-
-<div class="videos">
-
-    <div class="video">
-        <iframe src="https://www.youtube.com/embed/EuJ6UR_pD5s" allowfullscreen></iframe>
-        <p>World is Mine</p>
+    <div class="card">
+    <h2>🎤 Kim jest Teto?</h2>
+        <p>
+            Kasane Teto to postać stworzona jako żart na Prima Aprilis, która
+            stała się jedną z najpopularniejszych postaci w świecie UTAU.
+            Choć nie jest oficjalnym Vocaloidem, zdobyła ogromną popularność.
+        </p>
     </div>
 
-    <div class="video">
-        <iframe src="https://www.youtube.com/embed/shs0rAiwsGQ" allowfullscreen></iframe>
-        <p>Senbonzakura</p>
+   <div class="card">
+    <h2>📊 Informacje</h2>
+        <ul>
+            <li>Wiek: 31 lat</li>
+            <li>Wzrost: 159,5 cm</li>
+            <li>Ulubione jedzenie: bagietki</li>
+            <li>Charakter: chaotyczny, energiczny</li>
+        </ul>
     </div>
 
-    <div class="video">
-        <iframe src="https://www.youtube.com/embed/PqJNc9KVIZE" allowfullscreen></iframe>
-        <p>Tell Your World</p>
-    </div>
-
-</div>
-    <button onclick="alert('Dziękuję za odwiedziny! 💙')">
-        Kliknij mnie
-    </button>
-</section>
-
-<style>
-#gallery {
-    padding: 40px;
-    text-align: center;
-    background: #12121c;
-}
-
-#gallery h2 {
-    color: #00ffd5;
-    font-size: 28px;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: 0.4s;
-}
-
-/* efekt przy najechaniu */
-.gallery-item:hover img {
-    transform: scale(1.1);
-    filter: brightness(0.6);
-}
-
-/* overlay z napisem */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #00ffd5;
-    font-size: 18px;
-    font-weight: bold;
-    opacity: 0;
-    transition: 0.4s;
-    text-shadow: 0 0 10px #00ffd5;
-}
-
-.gallery-item:hover .overlay {
-    opacity: 1;
-}
-</style>
-
-
-<section id="gallery">
-    <h2>Galeria</h2>
+<div class="card">
+    <h2>🖼️ Galeria</h2>
 
     <div class="gallery">
-
-        <div class="gallery-item">
-            <img src="https://i.redd.it/29wcsjvk5d2a1.jpg">
-            <div class="overlay">Miku Vibes</div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://i.pinimg.com/736x/ab/22/a9/ab22a9b92f94e77c46645ac78d16a01b.jpg">
-            <div class="overlay">Cute Miku</div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://kawaji.co.uk/cdn/shop/articles/Art_by_kiyamachi_CFM_MIKU_1.png?v=1666890427">
-            <div class="overlay">Art Style</div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://www.impericon.com/cdn/shop/files/hatsune-miku-figurine-hatsune-miku-x2_215eacd1-4a8c-4906-b623-4e714cb4855a.jpg?v=1770999890">
-            <div class="overlay">Figure</div>
-        </div>
-
+        <img src="https://i.pinimg.com/736x/41/53/cc/4153cca18003236645f1ad74d1a1e95e.jpg">
+        <img src="https://i.pinimg.com/736x/31/30/f2/3130f2ffb8f3c5a747a2d35f358d4958.jpg">
+        <img src="https://server.wallpaperalchemy.com/storage/wallpapers/298/kasane-teto-4k-anime-wallpaper.jpg">
+        <img src="https://www.vocaloidnews.net/wp-content/uploads/2017/10/teto.png">
+        <img src="https://m.media-amazon.com/images/I/61JH6IANxfL._AC_UF1000,1000_QL80_.jpg">
+        <img src="https://mental-asylum-teto.neocities.org/TetoPictures/teto4.webp">
     </div>
-</section>
 
-<section id="funfacts">
-    <h2>Ciekawostki</h2>
-    <ul>
-        <li>Miku ma ponad 100 000 utworów stworzonych przez fanów</li>
-        <li>Występuje jako hologram na koncertach na żywo</li>
-        <li>Nie jest prawdziwa, a i tak zarabia więcej niż większość ludzi</li>
-        <li>Jej głos powstał z próbek prawdziwej seiyū</li>
-    </ul>
-</section>
-<section id="history">
-    <h2>Historia powstania</h2>
-    <p>
-        Hatsune Miku została stworzona przez Crypton Future Media jako część technologii Vocaloid.
-        Jej premiera odbyła się w 2007 roku i szybko stała się internetowym fenomenem.
-        Zamiast jednego wykonawcy, stała się platformą dla tysięcy twórców muzyki.
-    </p>
-</section>
-<section id="events">
-    <h2>Koncerty na żywo</h2>
-    <p>
-        Miku występuje jako projekcja 3D na scenie, często przed tysiącami fanów.
-        Jej koncerty odbywały się m.in. w Japonii, USA i Europie.
-    </p>
+<div class="game">
+    <h2>🥖 Łapanie bagietek</h2>
+    <div id="score">Wynik: 0</div>
 
-    <ul>
-        <li>Hatsune Miku Expo (globalna trasa koncertowa)</li>
-        <li>Miku Live in Tokyo Dome</li>
-        <li>Japan Vocaloid Festivals</li>
-    </ul>
-</section>
-<style>
-/* wspólny wygląd sekcji */
-#funfacts, #history, #events {
-    background: rgba(10, 10, 20, 0.85);
-    color: #e6faff;
-    border-radius: 15px;
-    padding: 30px;
-    margin: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    transition: 0.4s;
-}
-
-/* hover jak karta */
-#funfacts:hover, #history:hover, #events:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,255,213,0.25);
-}
-
-/* nagłówki */
-#funfacts h2, #history h2, #events h2 {
-    color: #00ffd5;
-    text-shadow: 0 0 10px rgba(0,255,213,0.6);
-    margin-bottom: 15px;
-}
-
-/* listy */
-#funfacts ul, #events ul {
-    list-style: none;
-    padding: 0;
-}
-
-#funfacts li, #events li {
-    padding: 10px;
-    margin: 8px 0;
-    background: rgba(255,255,255,0.05);
-    border-left: 3px solid #00ffd5;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-/* hover na elementach listy */
-#funfacts li:hover, #events li:hover {
-    background: rgba(0,255,213,0.1);
-    transform: translateX(5px);
-}
-
-/* tekst historii */
-#history p {
-    line-height: 1.6;
-    font-size: 16px;
-    color: #d6f7ff;
-}
-</style>
-<style>
-footer {
-    background: #0d0d14;
-    color: #aaa;
-    text-align: center;
-    padding: 30px 20px;
-    position: relative;
-    margin-top: 50px;
-    border-top: 1px solid #00ffd5;
-}
-
-/* delikatny efekt światła */
-footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 2px;
-    background: #00ffd5;
-    box-shadow: 0 0 15px #00ffd5;
-}
-
-footer p {
-    margin: 10px 0;
-    font-size: 14px;
-}
-
-/* sociale */
-.footer-links {
-    margin-top: 10px;
-}
-
-.footer-links a {
-    color: #00ffd5;
-    margin: 0 10px;
-    text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.footer-links a:hover {
-    color: white;
-    text-shadow: 0 0 10px #00ffd5;
-}
-</style>
-<style>
-footer {
-    background: linear-gradient(135deg, #0b0b14, #111122);
-    color: #b8f7ff;
-    text-align: center;
-    padding: 40px 20px;
-    position: relative;
-    margin-top: 60px;
-    overflow: hidden;
-    border-top: 1px solid rgba(0,255,213,0.4);
-}
-
-/* neonowa fala */
-footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -50%;
-    width: 200%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #00ffd5, transparent);
-    animation: moveLine 3s linear infinite;
-}
-
-@keyframes moveLine {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(50%); }
-}
-
-/* tekst */
-footer p {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #aeefff;
-    letter-spacing: 1px;
-}
-
-/* linki */
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.footer-links a {
-    text-decoration: none;
-    color: #00ffd5;
-    font-weight: bold;
-    padding: 8px 14px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    transition: 0.3s;
-    border: 1px solid transparent;
-}
-
-/* hover */
-.footer-links a:hover {
-    background: rgba(0,255,213,0.15);
-    border: 1px solid #00ffd5;
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(0,255,213,0.4);
-}
-</style>
+    <div id="gameArea">
+        <div id="basket">🧺</div>
+    </div>
+</div>
 
 <footer>
-    <p>Strona o Hatsune Miku | 2026</p>
-
-    <div class="footer-links">
-        <a href="https://www.youtube.com/@HatsuneMiku" target="_blank">YouTube</a>
-        <a href="https://twitter.com/cfm_miku_en" target="_blank">Twitter</a>
-        <a href="https://www.instagram.com/cfm_miku_official/" target="_blank">Instagram</a>
-    </div>
+    Strona o Kasane Teto © 2026
 </footer>
-<div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="">
-</div>
+<div class="bagietki"></div>
 <script>
-const sections = document.querySelectorAll("section");
+const container = document.querySelector(".bagietki");
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
+for (let i = 0; i < 20; i++) {
+    let b = document.createElement("div");
+    b.classList.add("bagietka");
+    b.innerText = "🥖";
+
+    b.style.left = Math.random() * 100 + "vw";
+    b.style.animationDuration = (5 + Math.random() * 5) + "s";
+    b.style.fontSize = (20 + Math.random() * 30) + "px";
+
+    container.appendChild(b);
+}
+</script>
+<script>
+document.querySelectorAll(".gallery img").forEach(img => {
+    img.addEventListener("click", () => {
+        const overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.background = "rgba(0,0,0,0.85)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.zIndex = 9999;
+        overlay.style.cursor = "pointer";
+
+        const big = document.createElement("img");
+        big.src = img.src;
+        big.style.maxWidth = "90%";
+        big.style.maxHeight = "90%";
+        big.style.borderRadius = "15px";
+        big.style.boxShadow = "0 10px 40px rgba(0,0,0,0.5)";
+
+        overlay.appendChild(big);
+
+        overlay.onclick = () => overlay.remove();
+
+        document.body.appendChild(overlay);
     });
-}, {
-    threshold: 0.15
-});
-
-sections.forEach(section => {
-    observer.observe(section);
 });
 </script>
+<script>
+let score = 0;
+const scoreEl = document.getElementById("score");
+const gameArea = document.getElementById("gameArea");
+const basket = document.getElementById("basket");
+
+// ruch koszyka
+document.addEventListener("mousemove", (e) => {
+    const rect = gameArea.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    
+    if (x < 20) x = 20;
+    if (x > rect.width - 20) x = rect.width - 20;
+
+    basket.style.left = x + "px";
+});
+
+// tworzenie bagietek
+function spawnBaguette() {
+    const b = document.createElement("div");
+    b.classList.add("baguette");
+    b.innerText = "🥖";
+
+    b.style.left = Math.random() * 580 + "px";
+    gameArea.appendChild(b);
+
+    let y = -40;
+
+    const fall = setInterval(() => {
+        y += 4;
+        b.style.top = y + "px";
+
+        const basketRect = basket.getBoundingClientRect();
+        const baguetteRect = b.getBoundingClientRect();
+
+        if (
+            baguetteRect.bottom >= basketRect.top &&
+            baguetteRect.left < basketRect.right &&
+            baguetteRect.right > basketRect.left
+        ) {
+            score++;
+            scoreEl.innerText = "Wynik: " + score;
+            b.remove();
+            clearInterval(fall);
+        }
+
+        if (y > 400) {
+            b.remove();
+            clearInterval(fall);
+        }
+    }, 20);
+}
+
+setInterval(spawnBaguette, 900);
+</script>
+<script>
+document.addEventListener("mousemove", (e) => {
+    const rect = gameArea.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+
+    x = Math.max(20, Math.min(x, rect.width - 20));
+
+    basket.style.left = x + "px";
+});
+</script>
+</body>
+</html>
